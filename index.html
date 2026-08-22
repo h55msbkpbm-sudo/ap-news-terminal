@@ -8,14 +8,14 @@
 :root {
   --ap-red: #c8102e;
   --bg: #000;
-  --bg-elev: #0a0a0a;
+  --bg-elev: #080808;
   --text: #f0f0f0;
   --muted: #999;
   --dim: #666;
-  --border: #1c1c1c;
+  --border: #1a1a1a;
   --up: #00c853;
   --down: #ff1744;
-  --ticker-h: 30px;
+  --ticker-h: 26px;
   --sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
   --mono: "SF Mono", "Roboto Mono", "Courier New", Courier, monospace;
 }
@@ -24,13 +24,13 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
-  font-size: 13.5px;
-  line-height: 1.28;
+  font-size: 13px;
+  line-height: 1.25;
   -webkit-font-smoothing: antialiased;
   padding-top: var(--ticker-h);
 }
 
-/* Ticker */
+/* Ticker — denser */
 .ticker-wrap {
   position: fixed; top: 0; left: 0; right: 0;
   height: var(--ticker-h);
@@ -38,113 +38,112 @@ body {
   border-bottom: 1px solid var(--ap-red);
   display: flex; align-items: center;
   overflow: hidden; z-index: 1000;
-  font-family: var(--mono); font-size: 11.5px;
+  font-family: var(--mono); font-size: 11px;
 }
 .ticker-label {
   flex-shrink: 0;
   background: var(--ap-red); color: #fff;
-  font-weight: 700; font-size: 9.5px;
-  letter-spacing: 0.07em; text-transform: uppercase;
-  padding: 0 9px; height: 100%;
+  font-weight: 700; font-size: 9px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0 8px; height: 100%;
   display: flex; align-items: center; z-index: 2;
 }
 .ticker-track { flex: 1; overflow: hidden; height: 100%; }
 .ticker {
   display: inline-block; white-space: nowrap;
   line-height: var(--ticker-h);
-  animation: scroll 48s linear infinite;
+  animation: scroll 45s linear infinite;
 }
 .ticker:hover { animation-play-state: paused; }
 @keyframes scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.ticker-item { display: inline-block; padding: 0 1.1rem; color: #e8e8e8; }
-.ticker-item .sym { font-weight: 700; margin-right: 0.3rem; color: #fff; }
+.ticker-item { display: inline-block; padding: 0 0.95rem; color: #e8e8e8; }
+.ticker-item .sym { font-weight: 700; margin-right: 0.25rem; color: #fff; }
 .ticker-item .up { color: var(--up); }
 .ticker-item .down { color: var(--down); }
 
-/* Masthead */
+/* Masthead — compact */
 .masthead {
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-bottom: 1px solid var(--ap-red);
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 7px;
   background: var(--bg);
   position: sticky; top: var(--ticker-h); z-index: 50;
 }
 .ap-logo {
-  font-weight: 900; font-size: 1.2rem;
+  font-weight: 900; font-size: 1.1rem;
   letter-spacing: -0.03em; color: #fff; line-height: 1;
 }
 .ap-logo .ap { color: var(--ap-red); }
 .live-badge {
   background: var(--ap-red); color: #fff;
-  font-size: 0.55rem; font-weight: 700;
-  letter-spacing: 0.08em; padding: 2px 5px;
+  font-size: 0.5rem; font-weight: 700;
+  letter-spacing: 0.07em; padding: 1px 4px;
   text-transform: uppercase;
 }
 .masthead-title {
-  font-size: 0.65rem; text-transform: uppercase;
-  letter-spacing: 0.12em; color: var(--muted);
+  font-size: 0.6rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--muted);
 }
 .live-clock {
   margin-left: auto;
-  font-family: var(--mono); font-size: 0.68rem; color: var(--muted);
+  font-family: var(--mono); font-size: 0.62rem; color: var(--muted);
 }
 
-/* Feed denser */
+/* Feed — ultra dense, more stories above fold */
 .feed {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
   gap: 0;
-  max-width: 1480px; margin: 0 auto;
+  max-width: 1600px; margin: 0 auto;
 }
 .story {
-  padding: 8px 11px 10px;
+  padding: 6px 9px 8px;
   border-bottom: 1px solid var(--border);
   border-right: 1px solid var(--border);
   transition: background 0.1s ease;
 }
 .story:hover { background: var(--bg-elev); }
 .kicker {
-  font-size: 0.55rem; font-weight: 700;
-  letter-spacing: 0.09em; text-transform: uppercase;
-  color: var(--ap-red); margin-bottom: 2px;
+  font-size: 0.5rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ap-red); margin-bottom: 1px;
 }
 .headline {
-  font-size: 0.9rem; font-weight: 700;
-  line-height: 1.2; margin-bottom: 3px;
+  font-size: 0.84rem; font-weight: 700;
+  line-height: 1.18; margin-bottom: 2px;
   color: #fff; letter-spacing: -0.01em;
 }
 .meta {
-  font-size: 0.58rem; line-height: 1.25;
-  margin-bottom: 4px; color: var(--muted);
+  font-size: 0.52rem; line-height: 1.2;
+  margin-bottom: 3px; color: var(--muted);
+  font-family: var(--mono);
 }
 .byline {
   font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
-.dateline {
-  font-family: var(--mono); font-size: 0.56rem; color: var(--dim);
-}
+.dateline { color: var(--dim); }
 .lead {
-  font-size: 0.8rem; color: var(--text); line-height: 1.32;
+  font-size: 0.76rem; color: var(--text); line-height: 1.28;
 }
 
 footer {
-  max-width: 1480px; margin: 16px auto 28px;
-  padding: 10px 12px;
-  font-size: 0.65rem; color: var(--dim);
+  max-width: 1600px; margin: 12px auto 24px;
+  padding: 8px 10px;
+  font-size: 0.6rem; color: var(--dim);
   border-top: 1px solid var(--border);
-  text-align: center; line-height: 1.4;
+  text-align: center; line-height: 1.35;
 }
 footer a { color: var(--muted); text-decoration: none; }
 footer a:hover { color: var(--ap-red); }
 
-@media (max-width: 640px) {
+@media (max-width: 600px) {
   .feed { grid-template-columns: 1fr; }
   .story { border-right: none; }
-  .masthead { flex-wrap: wrap; gap: 5px; }
+  .masthead { flex-wrap: wrap; gap: 4px; }
   .live-clock { width: 100%; margin-left: 0; }
 }
 </style>
@@ -169,85 +168,85 @@ footer a:hover { color: var(--ap-red); }
   <article class="story">
     <div class="kicker">Markets</div>
     <h2 class="headline">U.S. stocks climb as investors weigh economic data and Fed signals</h2>
-    <div class="meta"><span class="byline">By MICHAEL LIU</span> · <span class="dateline">NEW YORK (AP) — Updated 4:15 p.m. EDT</span></div>
-    <p class="lead">U.S. stocks closed higher Friday, with the Dow Jones Industrial Average rising more than 500 points, as investors assessed the latest economic readings and comments from Federal Reserve officials pointing to a measured approach on interest rates. The S&amp;P 500 gained 0.4 percent and the Nasdaq Composite advanced 0.4 percent.</p>
+    <div class="meta"><span class="byline">By MICHAEL LIU</span> — <span class="dateline">NEW YORK (AP) — 4:15 p.m. EDT</span></div>
+    <p class="lead">U.S. stocks closed higher Friday, with the Dow rising more than 500 points, as investors assessed economic data and Fed signals of a measured approach on rates. The S&P 500 gained 0.4 percent.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Ukraine</div>
     <h2 class="headline">Russian drones strike shopping mall in central Ukraine, killing at least 15</h2>
-    <div class="meta"><span class="byline">By OLGA KUZNETSOVA</span> · <span class="dateline">KYIV, Ukraine (AP) — Updated 3:42 p.m. EDT</span></div>
-    <p class="lead">Russian drones struck a shopping center in a central Ukrainian city on Friday, killing at least 15 people and wounding dozens more, local officials said. The attack formed part of a broader overnight barrage that also targeted energy infrastructure in several regions.</p>
+    <div class="meta"><span class="byline">By OLGA KUZNETSOVA</span> — <span class="dateline">KYIV, Ukraine (AP) — 3:42 p.m. EDT</span></div>
+    <p class="lead">Russian drones struck a shopping center in a central Ukrainian city on Friday, killing at least 15 people and wounding dozens more, local officials said. The attack was part of a broader overnight barrage.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Iran</div>
-    <h2 class="headline">Iranian families struggle as sanctions and blockade drive up food and medicine prices</h2>
-    <div class="meta"><span class="byline">By REZA MOHAMMADI</span> · <span class="dateline">TEHRAN, Iran (AP) — Updated 2:55 p.m. EDT</span></div>
-    <p class="lead">Iranian families are struggling to afford basic food and medicine as U.S. sanctions and a naval blockade intensify pressure on the economy nearly six months into heightened regional conflict. Grocery shelves remain stocked, but prices for staples have soared in recent weeks.</p>
+    <h2 class="headline">Iranian families struggle as sanctions and blockade drive up food prices</h2>
+    <div class="meta"><span class="byline">By REZA MOHAMMADI</span> — <span class="dateline">TEHRAN, Iran (AP) — 2:55 p.m. EDT</span></div>
+    <p class="lead">Iranian families are struggling to afford basic food and medicine as U.S. sanctions and a naval blockade intensify pressure nearly six months into heightened regional conflict. Prices for staples have soared.</p>
   </article>
 
   <article class="story">
     <div class="kicker">China</div>
     <h2 class="headline">Chinese court sentences Evergrande founder to life in prison, imposes massive fines</h2>
-    <div class="meta"><span class="byline">By LIN MEI</span> · <span class="dateline">HONG KONG (AP) — Updated 1:30 p.m. EDT</span></div>
-    <p class="lead">A Chinese court sentenced Hui Ka Yan, founder of the embattled property developer Evergrande, to life in prison on Friday and imposed fines totaling more than $2 billion on the company and related entities, according to state media reports.</p>
+    <div class="meta"><span class="byline">By LIN MEI</span> — <span class="dateline">HONG KONG (AP) — 1:30 p.m. EDT</span></div>
+    <p class="lead">A Chinese court sentenced Hui Ka Yan, founder of embattled property developer Evergrande, to life in prison on Friday and imposed fines totaling more than $2 billion on the company and related entities.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Taiwan</div>
     <h2 class="headline">Taiwan proposes record $35 billion defense budget amid pressure from China</h2>
-    <div class="meta"><span class="byline">By CHEN WEI-LING</span> · <span class="dateline">TAIPEI, Taiwan (AP) — Updated 12:48 p.m. EDT</span></div>
-    <p class="lead">Taiwan's government proposed a record $35 billion defense budget for 2027 on Friday, citing growing military pressure from China and the need to accelerate procurement of advanced weapons systems and munitions stockpiles.</p>
+    <div class="meta"><span class="byline">By CHEN WEI-LING</span> — <span class="dateline">TAIPEI, Taiwan (AP) — 12:48 p.m. EDT</span></div>
+    <p class="lead">Taiwan's government proposed a record $35 billion defense budget for 2027 on Friday, citing growing military pressure from China and the need to accelerate procurement of advanced weapons systems.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Korea</div>
     <h2 class="headline">U.S. and South Korea wrap up joint drills early after North Korean missile barrage</h2>
-    <div class="meta"><span class="byline">By PARK JI-HOON</span> · <span class="dateline">SEOUL, South Korea (AP) — Updated 11:20 a.m. EDT</span></div>
-    <p class="lead">The U.S. and South Korean militaries wrapped up joint drills a day early on Friday, following a North Korean missile barrage that officials said underscored the need for continued readiness and close coordination between the allies.</p>
+    <div class="meta"><span class="byline">By PARK JI-HOON</span> — <span class="dateline">SEOUL, South Korea (AP) — 11:20 a.m. EDT</span></div>
+    <p class="lead">The U.S. and South Korean militaries wrapped up joint drills a day early on Friday, following a North Korean missile barrage that officials said underscored the need for continued readiness.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Trade</div>
     <h2 class="headline">U.S. and Canadian negotiators continue trade talks aimed at averting tariffs</h2>
-    <div class="meta"><span class="byline">By SARAH THOMPSON</span> · <span class="dateline">WASHINGTON (AP) — Updated 10:15 a.m. EDT</span></div>
-    <p class="lead">U.S. and Canadian trade negotiators held another round of talks Friday aimed at finalizing an agreement that would avert threatened tariffs, though several key terms remained unresolved, according to people familiar with the discussions.</p>
+    <div class="meta"><span class="byline">By SARAH THOMPSON</span> — <span class="dateline">WASHINGTON (AP) — 10:15 a.m. EDT</span></div>
+    <p class="lead">U.S. and Canadian trade negotiators held another round of talks Friday aimed at finalizing an agreement that would avert threatened tariffs, though several key terms remained unresolved.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Weather</div>
     <h2 class="headline">Cleanup continues after tornadoes damage homes in Delaware and Long Island</h2>
-    <div class="meta"><span class="byline">By JAMES CARTER</span> · <span class="dateline">NEW YORK (AP) — Updated 9:40 a.m. EDT</span></div>
-    <p class="lead">Cleanup continued Friday after tornadoes touched down in parts of Delaware and New York's Long Island, damaging homes, downing power lines and scattering debris across several communities. No fatalities were reported.</p>
+    <div class="meta"><span class="byline">By JAMES CARTER</span> — <span class="dateline">NEW YORK (AP) — 9:40 a.m. EDT</span></div>
+    <p class="lead">Cleanup continued Friday after tornadoes touched down in parts of Delaware and New York's Long Island, damaging homes and downing power lines. No fatalities were reported.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Politics</div>
     <h2 class="headline">Administration defends White House ballroom project before Supreme Court</h2>
-    <div class="meta"><span class="byline">By EMILY RODRIGUEZ</span> · <span class="dateline">WASHINGTON (AP) — Updated 8:55 a.m. EDT</span></div>
-    <p class="lead">The administration argued before the Supreme Court on Friday that a proposed White House ballroom is needed for national security and diplomatic functions, as justices weighed a legal challenge to the construction project.</p>
+    <div class="meta"><span class="byline">By EMILY RODRIGUEZ</span> — <span class="dateline">WASHINGTON (AP) — 8:55 a.m. EDT</span></div>
+    <p class="lead">The administration argued before the Supreme Court on Friday that a proposed White House ballroom is needed for national security and diplomatic functions, as justices weighed a legal challenge.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Africa</div>
     <h2 class="headline">Rescuers recover more bodies after mine collapse; Congo readies Ebola vaccines</h2>
-    <div class="meta"><span class="byline">By JEAN-BAPTISTE MBUYI</span> · <span class="dateline">BANGUI, Central African Republic (AP) — Updated 7:30 a.m. EDT</span></div>
-    <p class="lead">Rescuers recovered more bodies Friday after a mine collapse that killed more than 100 people earlier this week in the Central African Republic, while neighboring Congo prepared to receive 70,000 doses of Ebola vaccine amid ongoing outbreak concerns.</p>
+    <div class="meta"><span class="byline">By JEAN-BAPTISTE MBUYI</span> — <span class="dateline">BANGUI, Central African Republic (AP) — 7:30 a.m. EDT</span></div>
+    <p class="lead">Rescuers recovered more bodies Friday after a mine collapse that killed more than 100 people earlier this week, while Congo prepared to receive 70,000 doses of Ebola vaccine amid outbreak concerns.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Energy</div>
     <h2 class="headline">Oil prices climb as supply concerns and economic data lift energy markets</h2>
-    <div class="meta"><span class="byline">By DAVID KLEIN</span> · <span class="dateline">NEW YORK (AP) — Updated 4:05 p.m. EDT</span></div>
-    <p class="lead">Oil prices rose Friday, with benchmark crude settling higher as traders balanced supply concerns against signs of resilient demand. Energy stocks contributed to the broader market advance on Wall Street.</p>
+    <div class="meta"><span class="byline">By DAVID KLEIN</span> — <span class="dateline">NEW YORK (AP) — 4:05 p.m. EDT</span></div>
+    <p class="lead">Oil prices rose Friday, with benchmark crude settling higher as traders balanced supply concerns against signs of resilient demand. Energy stocks contributed to the broader market advance.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Technology</div>
     <h2 class="headline">Tech shares mixed as investors await key semiconductor and AI earnings</h2>
-    <div class="meta"><span class="byline">By PRIYA SHARMA</span> · <span class="dateline">SAN FRANCISCO (AP) — Updated 3:50 p.m. EDT</span></div>
-    <p class="lead">Major technology shares finished mixed Friday ahead of a busy slate of earnings reports from semiconductor and artificial intelligence-related companies next week. Nvidia and several chipmakers showed relative strength.</p>
+    <div class="meta"><span class="byline">By PRIYA SHARMA</span> — <span class="dateline">SAN FRANCISCO (AP) — 3:50 p.m. EDT</span></div>
+    <p class="lead">Major technology shares finished mixed Friday ahead of a busy slate of earnings reports from semiconductor and artificial intelligence-related companies next week.</p>
   </article>
 </main>
 
@@ -260,7 +259,7 @@ footer a:hover { color: var(--ap-red); }
 <script>
 function updateClock() {
   const now = new Date();
-  const opts = { timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+  const opts = { timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
   document.getElementById('clock').textContent = now.toLocaleString('en-US', opts) + ' EDT';
 }
 setInterval(updateClock, 1000);
@@ -276,7 +275,7 @@ const stocks = [
   {sym: 'AAPL', price: 309.35, chg: -1.95, pct: -0.63},
   {sym: 'MSFT', price: 483.24, chg: 2.09, pct: 0.43},
   {sym: 'NVDA', price: 214.72, chg: -2.13, pct: -0.98},
-  {sym: 'TSLA', price: 362.86, chg: 17.73, pct: 5.14},
+  {sym: 'TSLA', price: 363.55, chg: 18.40, pct: 5.34},
   {sym: 'GOOGL', price: 344.82, chg: 4.15, pct: 1.22},
   {sym: 'AMZN', price: 258.63, chg: -1.48, pct: -0.57},
   {sym: 'META', price: 549.90, chg: 4.07, pct: 0.75},
