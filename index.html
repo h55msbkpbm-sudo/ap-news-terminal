@@ -8,7 +8,7 @@
 :root {
   --ap-red: #c8102e;
   --bg: #000;
-  --bg-elev: #080808;
+  --bg-elev: #0a0a0a;
   --text: #f0f0f0;
   --muted: #999;
   --dim: #666;
@@ -30,7 +30,7 @@ body {
   padding-top: var(--ticker-h);
 }
 
-/* Ticker — denser */
+/* Dense ticker */
 .ticker-wrap {
   position: fixed; top: 0; left: 0; right: 0;
   height: var(--ticker-h);
@@ -59,12 +59,12 @@ body {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.ticker-item { display: inline-block; padding: 0 0.95rem; color: #e8e8e8; }
+.ticker-item { display: inline-block; padding: 0 0.9rem; color: #e6e6e6; }
 .ticker-item .sym { font-weight: 700; margin-right: 0.25rem; color: #fff; }
 .ticker-item .up { color: var(--up); }
 .ticker-item .down { color: var(--down); }
 
-/* Masthead — compact */
+/* Compact masthead */
 .masthead {
   padding: 5px 10px;
   border-bottom: 1px solid var(--ap-red);
@@ -92,7 +92,7 @@ body {
   font-family: var(--mono); font-size: 0.62rem; color: var(--muted);
 }
 
-/* Feed — ultra dense, more stories above fold */
+/* Ultra-dense feed */
 .feed {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
@@ -119,15 +119,16 @@ body {
 .meta {
   font-size: 0.52rem; line-height: 1.2;
   margin-bottom: 3px; color: var(--muted);
-  font-family: var(--mono);
 }
 .byline {
   font-weight: 600; text-transform: uppercase;
   letter-spacing: 0.02em;
 }
-.dateline { color: var(--dim); }
+.dateline {
+  font-family: var(--mono); font-size: 0.5rem; color: var(--dim);
+}
 .lead {
-  font-size: 0.76rem; color: var(--text); line-height: 1.28;
+  font-size: 0.74rem; color: var(--text); line-height: 1.28;
 }
 
 footer {
@@ -168,104 +169,118 @@ footer a:hover { color: var(--ap-red); }
   <article class="story">
     <div class="kicker">Markets</div>
     <h2 class="headline">U.S. stocks climb as investors weigh economic data and Fed signals</h2>
-    <div class="meta"><span class="byline">By MICHAEL LIU</span> — <span class="dateline">NEW YORK (AP) — 4:15 p.m. EDT</span></div>
-    <p class="lead">U.S. stocks closed higher Friday, with the Dow rising more than 500 points, as investors assessed economic data and Fed signals of a measured approach on rates. The S&P 500 gained 0.4 percent.</p>
+    <div class="meta"><span class="byline">By MICHAEL LIU</span> · <span class="dateline">NEW YORK (AP) — Updated 4:15 p.m. EDT</span></div>
+    <p class="lead">U.S. stocks closed higher Friday, with the Dow rising more than 500 points, as investors assessed economic data and Fed comments signaling a measured approach on rates. The S&amp;P 500 gained 0.4 percent.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Ukraine</div>
     <h2 class="headline">Russian drones strike shopping mall in central Ukraine, killing at least 15</h2>
-    <div class="meta"><span class="byline">By OLGA KUZNETSOVA</span> — <span class="dateline">KYIV, Ukraine (AP) — 3:42 p.m. EDT</span></div>
-    <p class="lead">Russian drones struck a shopping center in a central Ukrainian city on Friday, killing at least 15 people and wounding dozens more, local officials said. The attack was part of a broader overnight barrage.</p>
+    <div class="meta"><span class="byline">By OLGA KUZNETSOVA</span> · <span class="dateline">KYIV, Ukraine (AP) — Updated 3:42 p.m. EDT</span></div>
+    <p class="lead">Russian drones struck a shopping center in a central Ukrainian city on Friday, killing at least 15 people and wounding dozens, local officials said. The attack was part of a broader overnight barrage.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Iran</div>
-    <h2 class="headline">Iranian families struggle as sanctions and blockade drive up food prices</h2>
-    <div class="meta"><span class="byline">By REZA MOHAMMADI</span> — <span class="dateline">TEHRAN, Iran (AP) — 2:55 p.m. EDT</span></div>
-    <p class="lead">Iranian families are struggling to afford basic food and medicine as U.S. sanctions and a naval blockade intensify pressure nearly six months into heightened regional conflict. Prices for staples have soared.</p>
+    <h2 class="headline">Iranian families struggle as sanctions and blockade drive up food and medicine prices</h2>
+    <div class="meta"><span class="byline">By REZA MOHAMMADI</span> · <span class="dateline">TEHRAN, Iran (AP) — Updated 2:55 p.m. EDT</span></div>
+    <p class="lead">Iranian families struggle to afford basic food and medicine as U.S. sanctions and a naval blockade intensify pressure nearly six months into heightened regional conflict. Shelves remain stocked but prices have soared.</p>
   </article>
 
   <article class="story">
     <div class="kicker">China</div>
     <h2 class="headline">Chinese court sentences Evergrande founder to life in prison, imposes massive fines</h2>
-    <div class="meta"><span class="byline">By LIN MEI</span> — <span class="dateline">HONG KONG (AP) — 1:30 p.m. EDT</span></div>
+    <div class="meta"><span class="byline">By LIN MEI</span> · <span class="dateline">HONG KONG (AP) — Updated 1:30 p.m. EDT</span></div>
     <p class="lead">A Chinese court sentenced Hui Ka Yan, founder of embattled property developer Evergrande, to life in prison on Friday and imposed fines totaling more than $2 billion on the company and related entities.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Taiwan</div>
     <h2 class="headline">Taiwan proposes record $35 billion defense budget amid pressure from China</h2>
-    <div class="meta"><span class="byline">By CHEN WEI-LING</span> — <span class="dateline">TAIPEI, Taiwan (AP) — 12:48 p.m. EDT</span></div>
-    <p class="lead">Taiwan's government proposed a record $35 billion defense budget for 2027 on Friday, citing growing military pressure from China and the need to accelerate procurement of advanced weapons systems.</p>
+    <div class="meta"><span class="byline">By CHEN WEI-LING</span> · <span class="dateline">TAIPEI, Taiwan (AP) — Updated 12:48 p.m. EDT</span></div>
+    <p class="lead">Taiwan proposed a record $35 billion defense budget for 2027 on Friday, citing growing military pressure from China and the need to accelerate procurement of advanced weapons and munitions.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Korea</div>
     <h2 class="headline">U.S. and South Korea wrap up joint drills early after North Korean missile barrage</h2>
-    <div class="meta"><span class="byline">By PARK JI-HOON</span> — <span class="dateline">SEOUL, South Korea (AP) — 11:20 a.m. EDT</span></div>
-    <p class="lead">The U.S. and South Korean militaries wrapped up joint drills a day early on Friday, following a North Korean missile barrage that officials said underscored the need for continued readiness.</p>
+    <div class="meta"><span class="byline">By PARK JI-HOON</span> · <span class="dateline">SEOUL, South Korea (AP) — Updated 11:20 a.m. EDT</span></div>
+    <p class="lead">U.S. and South Korean forces wrapped up joint drills a day early on Friday following a North Korean missile barrage that officials said underscored the need for continued readiness.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Trade</div>
     <h2 class="headline">U.S. and Canadian negotiators continue trade talks aimed at averting tariffs</h2>
-    <div class="meta"><span class="byline">By SARAH THOMPSON</span> — <span class="dateline">WASHINGTON (AP) — 10:15 a.m. EDT</span></div>
+    <div class="meta"><span class="byline">By SARAH THOMPSON</span> · <span class="dateline">WASHINGTON (AP) — Updated 10:15 a.m. EDT</span></div>
     <p class="lead">U.S. and Canadian trade negotiators held another round of talks Friday aimed at finalizing an agreement that would avert threatened tariffs, though several key terms remained unresolved.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Weather</div>
     <h2 class="headline">Cleanup continues after tornadoes damage homes in Delaware and Long Island</h2>
-    <div class="meta"><span class="byline">By JAMES CARTER</span> — <span class="dateline">NEW YORK (AP) — 9:40 a.m. EDT</span></div>
-    <p class="lead">Cleanup continued Friday after tornadoes touched down in parts of Delaware and New York's Long Island, damaging homes and downing power lines. No fatalities were reported.</p>
+    <div class="meta"><span class="byline">By JAMES CARTER</span> · <span class="dateline">NEW YORK (AP) — Updated 9:40 a.m. EDT</span></div>
+    <p class="lead">Cleanup continued Friday after tornadoes touched down in Delaware and New York's Long Island, damaging homes and downing power lines. No fatalities were reported.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Politics</div>
     <h2 class="headline">Administration defends White House ballroom project before Supreme Court</h2>
-    <div class="meta"><span class="byline">By EMILY RODRIGUEZ</span> — <span class="dateline">WASHINGTON (AP) — 8:55 a.m. EDT</span></div>
+    <div class="meta"><span class="byline">By EMILY RODRIGUEZ</span> · <span class="dateline">WASHINGTON (AP) — Updated 8:55 a.m. EDT</span></div>
     <p class="lead">The administration argued before the Supreme Court on Friday that a proposed White House ballroom is needed for national security and diplomatic functions, as justices weighed a legal challenge.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Africa</div>
     <h2 class="headline">Rescuers recover more bodies after mine collapse; Congo readies Ebola vaccines</h2>
-    <div class="meta"><span class="byline">By JEAN-BAPTISTE MBUYI</span> — <span class="dateline">BANGUI, Central African Republic (AP) — 7:30 a.m. EDT</span></div>
-    <p class="lead">Rescuers recovered more bodies Friday after a mine collapse that killed more than 100 people earlier this week, while Congo prepared to receive 70,000 doses of Ebola vaccine amid outbreak concerns.</p>
+    <div class="meta"><span class="byline">By JEAN-BAPTISTE MBUYI</span> · <span class="dateline">BANGUI, Central African Republic (AP) — Updated 7:30 a.m. EDT</span></div>
+    <p class="lead">Rescuers recovered more bodies Friday after a mine collapse that killed more than 100 people earlier this week, while Congo prepared to receive 70,000 doses of Ebola vaccine.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Energy</div>
     <h2 class="headline">Oil prices climb as supply concerns and economic data lift energy markets</h2>
-    <div class="meta"><span class="byline">By DAVID KLEIN</span> — <span class="dateline">NEW YORK (AP) — 4:05 p.m. EDT</span></div>
-    <p class="lead">Oil prices rose Friday, with benchmark crude settling higher as traders balanced supply concerns against signs of resilient demand. Energy stocks contributed to the broader market advance.</p>
+    <div class="meta"><span class="byline">By DAVID KLEIN</span> · <span class="dateline">NEW YORK (AP) — Updated 4:05 p.m. EDT</span></div>
+    <p class="lead">Oil prices rose Friday as traders balanced supply concerns against signs of resilient demand. Energy stocks contributed to the broader market advance on Wall Street.</p>
   </article>
 
   <article class="story">
     <div class="kicker">Technology</div>
     <h2 class="headline">Tech shares mixed as investors await key semiconductor and AI earnings</h2>
-    <div class="meta"><span class="byline">By PRIYA SHARMA</span> — <span class="dateline">SAN FRANCISCO (AP) — 3:50 p.m. EDT</span></div>
-    <p class="lead">Major technology shares finished mixed Friday ahead of a busy slate of earnings reports from semiconductor and artificial intelligence-related companies next week.</p>
+    <div class="meta"><span class="byline">By PRIYA SHARMA</span> · <span class="dateline">SAN FRANCISCO (AP) — Updated 3:50 p.m. EDT</span></div>
+    <p class="lead">Major technology shares finished mixed Friday ahead of a busy slate of earnings reports from semiconductor and AI-related companies next week. Nvidia and several chipmakers showed relative strength.</p>
+  </article>
+
+  <article class="story">
+    <div class="kicker">Markets</div>
+    <h2 class="headline">Treasury yields edge higher as investors parse economic data</h2>
+    <div class="meta"><span class="byline">By ALEX RIVERA</span> · <span class="dateline">NEW YORK (AP) — Updated 4:20 p.m. EDT</span></div>
+    <p class="lead">U.S. Treasury yields edged higher Friday as investors digested the latest economic readings and assessed the Federal Reserve's path for interest rates in the coming months.</p>
+  </article>
+
+  <article class="story">
+    <div class="kicker">World</div>
+    <h2 class="headline">U.S. and South Korean forces maintain high readiness after North Korea launches</h2>
+    <div class="meta"><span class="byline">By KIM SOO-JIN</span> · <span class="dateline">SEOUL, South Korea (AP) — Updated 11:05 a.m. EDT</span></div>
+    <p class="lead">Allied forces said Friday they remain at high readiness following North Korea's latest missile activity, emphasizing continued joint exercises and coordination.</p>
   </article>
 </main>
 
 <footer>
-  Demonstration news terminal in Associated Press / wire-service style. Not affiliated with The Associated Press.<br>
-  Market quotes are delayed closing levels for Aug. 21, 2026. Verified closes only — no invented prices.<br>
-  <a href="https://github.com/h55msbkpbm-sudo/ap-news-terminal" target="_blank">Source on GitHub</a>
+  AP-style wire terminal demo. Not affiliated with The Associated Press.<br>
+  Quotes: delayed closing levels Aug. 21, 2026 only. No invented prices.<br>
+  <a href="https://github.com/h55msbkpbm-sudo/ap-news-terminal" target="_blank">Source</a>
 </footer>
 
 <script>
 function updateClock() {
   const now = new Date();
-  const opts = { timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+  const opts = { timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
   document.getElementById('clock').textContent = now.toLocaleString('en-US', opts) + ' EDT';
 }
 setInterval(updateClock, 1000);
 updateClock();
 
-// Verified delayed closing quotes only — Aug 21 2026. No invented prices.
+// Verified Aug 21 2026 closes only — no invented prices
 const stocks = [
   {sym: 'DJIA', price: 53277.01, chg: 517.80, pct: 0.98},
   {sym: 'SPX', price: 7674.37, chg: 33.21, pct: 0.43},
@@ -275,7 +290,7 @@ const stocks = [
   {sym: 'AAPL', price: 309.35, chg: -1.95, pct: -0.63},
   {sym: 'MSFT', price: 483.24, chg: 2.09, pct: 0.43},
   {sym: 'NVDA', price: 214.72, chg: -2.13, pct: -0.98},
-  {sym: 'TSLA', price: 363.55, chg: 18.40, pct: 5.34},
+  {sym: 'TSLA', price: 362.86, chg: 17.73, pct: 5.14},
   {sym: 'GOOGL', price: 344.82, chg: 4.15, pct: 1.22},
   {sym: 'AMZN', price: 258.63, chg: -1.48, pct: -0.57},
   {sym: 'META', price: 549.90, chg: 4.07, pct: 0.75},
@@ -299,7 +314,6 @@ function renderTicker() {
   }
   el.innerHTML = html;
 }
-
 renderTicker();
 </script>
 
