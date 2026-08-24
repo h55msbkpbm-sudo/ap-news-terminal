@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AP Wire Terminal</title>
-<meta name="description" content="AP-style wire news terminal — dense headlines, bylines, timestamps, delayed market tape.">
+<meta name="description" content="AP-style wire news terminal — dense headlines, bylines, timestamps, live market tape.">
 <meta name="theme-color" content="#000000">
 <style>
 :root {
@@ -157,7 +157,7 @@ footer a:hover { color: var(--ap-red); }
 <body>
 
 <div class="ticker-wrap">
-  <div class="ticker-label">DELAYED · 4PM EDT</div>
+  <div class="ticker-label" id="ticker-label">LIVE</div>
   <div class="ticker-track">
     <div class="ticker" id="ticker"></div>
   </div>
@@ -272,7 +272,7 @@ footer a:hover { color: var(--ap-red); }
 
 <footer>
   AP-style wire terminal demo. Not affiliated with The Associated Press.<br>
-  Quotes: delayed closing levels Aug. 21, 2026 only. No invented prices.<br>
+  Quotes: live via Yahoo Finance. Not investment advice.<br>
   <a href="https://github.com/h55msbkpbm-sudo/ap-news-terminal" target="_blank" rel="noopener">Source</a>
 </footer>
 
@@ -285,41 +285,50 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Verified Aug 21 2026 closes only — no invented prices
-const stocks = [
-  {sym: 'DJIA', price: 53277.01, chg: 517.80, pct: 0.98},
-  {sym: 'SPX', price: 7674.37, chg: 33.21, pct: 0.43},
-  {sym: 'COMP', price: 26180.45, chg: 113.29, pct: 0.43},
-  {sym: 'NDX', price: 29308.86, chg: 95.69, pct: 0.33},
-  {sym: 'RUT', price: 3017.87, chg: 25.44, pct: 0.85},
-  {sym: 'AAPL', price: 309.35, chg: -1.95, pct: -0.63},
-  {sym: 'MSFT', price: 483.24, chg: 2.09, pct: 0.43},
-  {sym: 'NVDA', price: 214.72, chg: -2.13, pct: -0.98},
-  {sym: 'TSLA', price: 362.86, chg: 17.73, pct: 5.14},
-  {sym: 'GOOGL', price: 344.82, chg: 4.15, pct: 1.22},
-  {sym: 'AMZN', price: 258.63, chg: -1.48, pct: -0.57},
-  {sym: 'META', price: 549.90, chg: 4.07, pct: 0.75},
-  {sym: 'VIX', price: 15.13, chg: -0.88, pct: -5.50}
-];
+// Live Yahoo Finance ticker
+const symbols = ['^DJI', '^GSPC', '^IXIC', '^NDX', '^RUT', 'AAPL', 'MSFT', 'NVDA', 'TSLA', 'GOOGL', 'AMZN', 'META', '^VIX'];
+const displayNames = ['DJIA', 'SPX', 'COMP', 'NDX', 'RUT', 'AAPL', 'MSFT', 'NVDA', 'TSLA', 'GOOGL', 'AMZN', 'META', 'VIX'];
 
-function formatPrice(p) {
-  if (p >= 1000) return p.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  return p.toFixed(2);
+async function fetchQuote(symbol) {
+  try {
+    const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1m&range=1d`, {
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    });
+    const data = await res.json();
+    const meta = data.chart.result[0].meta;
+    const price = meta.regularMarketPrice;
+    const prevClose = meta.previousClose;
+    const chg = price - prevClose;
+    const pct = (chg / prevClose) * 100;
+    return { price, chg, pct };
+  } catch (e) {
+    return null;
+  }
 }
 
-function renderTicker() {
+async function updateLiveTicker() {
   const el = document.getElementById('ticker');
   let html = '';
+  
   for (let i = 0; i < 2; i++) {
-    stocks.forEach(s => {
-      const cls = s.pct >= 0 ? 'up' : 'down';
-      const sign = s.pct >= 0 ? '+' : '';
-      html += `<span class="ticker-item"><span class="sym">${s.sym}</span>${formatPrice(s.price)} <span class="${cls}">${sign}${s.chg.toFixed(2)} (${sign}${s.pct.toFixed(2)}%)</span></span>`;
-    });
+    for (let j = 0; j < symbols.length; j++) {
+      const quote = await fetchQuote(symbols[j]);
+      if (quote) {
+        const cls = quote.pct >= 0 ? 'up' : 'down';
+        const sign = quote.pct >= 0 ? '+' : '';
+        const name = displayNames[j];
+        const priceStr = quote.price >= 1000 ? quote.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : quote.price.toFixed(2);
+        html += `<span class="ticker-item"><span class="sym">${name}</span>${priceStr} <span class="${cls}">${sign}${quote.chg.toFixed(2)} (${sign}${quote.pct.toFixed(2)}%)</span></span>`;
+      }
+    }
   }
   el.innerHTML = html;
 }
-renderTicker();
+
+// Initial load
+updateLiveTicker();
+// Refresh every 30 seconds
+setInterval(updateLiveTicker, 30000);
 </script>
 
 </body>
