@@ -4,8 +4,428 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AP Wire Terminal</title>
+<meta name="description" content="Bloomberg-style wire terminal — real dated headlines from AP, Reuters, Bloomberg and other wires. Delayed verified quotes only.">
+<meta name="theme-color" content="#000000">
+<style>
+:root {
+  --amber: #ffbf00;
+  --amber-dim: #c49200;
+  --amber-deep: #8a6500;
+  --bg: #000000;
+  --bg-elev: #0c0c0c;
+  --bg-chip: #14110a;
+  --text: #f3f0e6;
+  --muted: #b8a97a;
+  --dim: #6e6240;
+  --border: #2a2414;
+  --up: #ffd54a;
+  --down: #c8102e;
+  --ticker-h: 32px;
+  --sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --mono: "SF Mono", "Roboto Mono", "Courier New", Courier, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #000; }
+body {
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--ticker-h);
+}
+.ticker-wrap {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--ticker-h);
+  background: #000;
+  border-bottom: 2px solid var(--amber);
+  display: flex; align-items: center;
+  overflow: hidden; z-index: 1000;
+  font-family: var(--mono); font-size: 13px;
+}
+.ticker-label {
+  flex-shrink: 0;
+  background: var(--amber); color: #000;
+  font-weight: 800; font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0 10px; height: 100%;
+  display: flex; align-items: center; z-index: 2;
+}
+.ticker-track { flex: 1; overflow: hidden; height: 100%; }
+.ticker {
+  display: inline-block; white-space: nowrap;
+  line-height: var(--ticker-h);
+  animation: scroll 50s linear infinite;
+}
+.ticker:hover { animation-play-state: paused; }
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-item { display: inline-block; padding: 0 1.05rem; color: #efe6c8; }
+.ticker-item .sym { font-weight: 800; margin-right: 0.3rem; color: var(--amber); }
+.ticker-item .up { color: var(--up); }
+.ticker-item .down { color: var(--down); }
+.masthead {
+  padding: 8px 14px;
+  border-bottom: 2px solid var(--amber);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: #000;
+  position: sticky; top: var(--ticker-h); z-index: 50;
+}
+.ap-logo {
+  font-weight: 900; font-size: 1.35rem;
+  letter-spacing: -0.03em; color: #fff; line-height: 1;
+}
+.ap-logo .ap { color: var(--amber); }
+.live-badge {
+  background: #1a160c; color: var(--amber);
+  border: 1px solid var(--amber-dim);
+  font-size: 0.62rem; font-weight: 800;
+  letter-spacing: 0.08em; padding: 3px 6px;
+  text-transform: uppercase;
+}
+.masthead-title {
+  font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--muted);
+}
+.masthead-right {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 10px;
+}
+.live-clock {
+  font-family: var(--mono); font-size: 0.78rem; color: var(--muted);
+}
+.refresh-btn {
+  appearance: none; border: 1px solid var(--amber);
+  background: var(--amber); color: #000;
+  font-family: var(--sans); font-size: 0.78rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 7px 14px; cursor: pointer;
+  min-width: 108px;
+}
+.refresh-btn:hover { background: #ffd54a; }
+.refresh-btn:disabled,
+.refresh-btn.busy {
+  background: #1a160c; color: var(--amber);
+  cursor: wait;
+}
+.refresh-meta {
+  font-family: var(--mono); font-size: 0.68rem; color: var(--dim);
+  width: 100%;
+}
+.chip-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 8px 14px 10px;
+  border-bottom: 1px solid var(--border);
+  background: #000;
+  position: sticky; top: calc(var(--ticker-h) + 52px); z-index: 40;
+}
+.chip {
+  appearance: none; border: 1px solid var(--border);
+  background: var(--bg-chip); color: var(--muted);
+  font-family: var(--sans); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 8px; cursor: pointer;
+}
+.chip.active {
+  border-color: var(--amber);
+  color: #000;
+  background: var(--amber);
+}
+.chip .n {
+  margin-left: 4px;
+  color: inherit;
+  opacity: 0.75;
+}
+.feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 0;
+  max-width: 1680px; margin: 0 auto;
+  background: #000;
+}
+.story {
+  padding: 12px 14px 14px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  transition: background 0.12s ease;
+  background: #000;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.story:hover { background: var(--bg-elev); }
+.story-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.kicker {
+  font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--amber);
+}
+.source-chip {
+  font-size: 0.62rem; font-weight: 800;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  border: 1px solid var(--amber-deep);
+  color: var(--amber);
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+.headline {
+  font-size: 1.05rem; font-weight: 750;
+  line-height: 1.22;
+  color: #fff; letter-spacing: -0.015em;
+}
+.headline a { color: inherit; text-decoration: none; }
+.headline a:hover { color: var(--amber); }
+.meta {
+  font-size: 0.72rem; line-height: 1.3;
+  color: var(--muted);
+}
+.byline {
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.03em; color: #d9c896;
+}
+.dateline {
+  font-family: var(--mono); font-size: 0.68rem; color: var(--dim);
+}
+.lead {
+  font-size: 0.92rem; color: #e8e0c8; line-height: 1.38;
+}
+.empty {
+  grid-column: 1 / -1;
+  padding: 28px 14px;
+  color: var(--muted);
+  text-align: center;
+}
+footer {
+  max-width: 1680px; margin: 16px auto 32px;
+  padding: 12px 14px;
+  font-size: 0.75rem; color: var(--dim);
+  border-top: 1px solid var(--border);
+  text-align: center; line-height: 1.45;
+  background: #000;
+}
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--amber); }
+@media (max-width: 720px) {
+  .feed { grid-template-columns: 1fr; }
+  .story { border-right: none; }
+  .masthead { gap: 6px; }
+  .masthead-right { width: 100%; margin-left: 0; justify-content: space-between; }
+  .chip-row { top: auto; position: static; }
+}
+</style>
 </head>
 <body>
-<p>placeholder</p>
+<div class="ticker-wrap">
+  <div class="ticker-label">DELAYED · FRI 4PM EDT</div>
+  <div class="ticker-track">
+    <div class="ticker" id="ticker"></div>
+  </div>
+</div>
+<header class="masthead">
+  <div class="ap-logo"><span class="ap">AP</span> WIRE</div>
+  <span class="live-badge">DELAYED TAPE</span>
+  <div class="masthead-title">All-News Terminal</div>
+  <div class="masthead-right">
+    <button type="button" class="refresh-btn" id="refreshBtn">Refresh</button>
+    <div class="live-clock" id="clock"></div>
+  </div>
+  <div class="refresh-meta" id="refreshMeta">Verified wires loaded. Quotes: Fri 28 Aug 2026 official closes.</div>
+</header>
+<nav class="chip-row" id="chipRow" aria-label="Source filters"></nav>
+<main class="feed" id="feed"></main>
+<footer>
+  Wire-service terminal. Not affiliated with The Associated Press, Reuters, Bloomberg or any listed source.<br>
+  Headlines are real dated wires only. No invented copy, no fake bylines, no X posts.<br>
+  Quotes: delayed official U.S. closes, Friday 28 Aug 2026. Not investment advice.<br>
+  <a href="https://github.com/h55msbkpbm-sudo/ap-news-terminal" target="_blank" rel="noopener">Source</a>
+  ·
+  <a href="https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html" target="_blank" rel="noopener">Live preview</a>
+</footer>
+<script>
+const STOCKS = [
+  {sym: 'DJIA',  price: 53559.99, chg: -9.45,  pct: -0.02},
+  {sym: 'SPX',   price: 7711.76,  chg: -19.23, pct: -0.25},
+  {sym: 'COMP',  price: 26402.42, chg: -138.93,pct: -0.52},
+  {sym: 'RUT',   price: 2972.37,  chg: -41.97, pct: -1.40},
+  {sym: 'AAPL',  price: 319.70,   chg: 5.12,   pct: 1.63},
+  {sym: 'MSFT',  price: 513.53,   chg: 8.47,   pct: 1.68},
+  {sym: 'NVDA',  price: 217.55,   chg: -10.43, pct: -4.57},
+  {sym: 'TSLA',  price: 348.75,   chg: -6.06,  pct: -1.71},
+  {sym: 'GOOGL', price: 346.59,   chg: 5.94,   pct: 1.74},
+  {sym: 'AMZN',  price: 266.43,   chg: 10.17,  pct: 3.97},
+  {sym: 'META',  price: 578.02,   chg: 6.91,   pct: 1.21},
+  {sym: 'VIX',   price: 14.43,    chg: -0.08,  pct: -0.55}
+];
+const SOURCES = ['ALL','AP','Reuters','Bloomberg','Yahoo','ASCO','ESMO','AFP','BBC','SCMP','Nikkei','STAT','FiercePharma','HK01'];
+const SEEDED = [
+  {id:'ap-indexes-0828',source:'AP',kicker:'Markets',headline:'How major U.S. stock indexes fared Friday, Aug. 28, 2026',byline:'THE ASSOCIATED PRESS',dateline:'NEW YORK (AP) — Fri 28 Aug 2026, 4:19 p.m. EDT',lead:'The S&P 500 fell 19.23 points, or 0.2%, to 7,711.76. The Dow Jones Industrial Average fell 9.45 points to 53,559.99. The Nasdaq composite fell 138.93 points, or 0.5%, to 26,402.42. The Russell 2000 fell 41.97 points, or 1.4%, to 2,972.37 after Fed Chair Kevin Warsh’s Jackson Hole remarks.',url:'https://finance.yahoo.com/markets/world-indices/articles/major-us-stock-indexes-fared-201958418.html',ts:'2026-08-28T20:19:00Z'},
+  {id:'ap-hormuz-0830',source:'AP',kicker:'Iran',headline:'U.S. strikes Iranian rocket launchers on the Strait of Hormuz in first military action in weeks',byline:'THE ASSOCIATED PRESS',dateline:'WASHINGTON (AP) — Sun 30 Aug 2026',lead:'U.S. forces struck Iranian rocket launchers on the Strait of Hormuz, marking their first military action in a month, AP reported. The strike followed a weeks-long lull in the six-month war.',url:'https://apnews.com/hub/strait-of-hormuz',ts:'2026-08-30T16:00:00Z'},
+  {id:'ap-roman-0830',source:'AP',kicker:'Science',headline:'NASA’s newest space telescope launches on a quest to explore the hidden universe',byline:'THE ASSOCIATED PRESS',dateline:'CAPE CANAVERAL, Fla. (AP) — Sun 30 Aug 2026',lead:'NASA’s $4.3 billion Nancy Grace Roman Space Telescope blasted off Sunday to hunt for planets around other stars, study dark energy and survey the cosmos. Administrator Jared Isaacman flew a jet past the pad on the eve of launch.',url:'https://apnews.com/science',ts:'2026-08-30T20:00:00Z'},
+  {id:'ap-canyon-0831',source:'AP',kicker:'Weather',headline:'Grand Canyon flash flood leaves 1 dead and several missing, park service says',byline:'THE ASSOCIATED PRESS',dateline:'GRAND CANYON NATIONAL PARK, Ariz. (AP) — Mon 31 Aug 2026',lead:'One person has died and about 15 people are missing or unaccounted for after a major flash flood at the Grand Canyon, the National Park Service said.',url:'https://apnews.com/hub/storms',ts:'2026-08-31T06:00:00Z'},
+  {id:'ap-lake-0828',source:'AP',kicker:'Politics',headline:'Trump signs order renaming Lake Ontario as Lake America in the United States',byline:'THE ASSOCIATED PRESS',dateline:'WASHINGTON (AP) — Fri 28 Aug 2026',lead:'President Donald Trump signed an executive order directing the Interior Department to update the lake’s name in the U.S. geographic naming service. The order does not bind Canada. The move followed a breakdown in U.S.-Canada talks and new 50% tariffs on about $20 billion of Canadian goods.',url:'https://apnews.com/newsletter/morning-wire/august-28-2026',ts:'2026-08-28T10:34:00Z'},
+  {id:'reu-larak-0830',source:'Reuters',kicker:'Iran',headline:'U.S. forces strike two Iranian launchers on Iran’s Larak Island, official says',byline:'REUTERS',dateline:'WASHINGTON (Reuters) — Sun 30 Aug 2026, 8:38 p.m. UTC',lead:'U.S. forces struck two Iranian launchers on Larak Island on Sunday, a U.S. official said, the first known American strikes on Iran since late July. The official said IRGC forces were observed preparing to launch rockets with sea mines into the Strait of Hormuz. Iranian state media said the attack killed and wounded several people.',url:'https://www.reuters.com/world/middle-east/us-forces-strike-two-iranian-launchers-irans-larak-island-us-official-says-2026-08-30/',ts:'2026-08-30T20:38:00Z'},
+  {id:'reu-oil-0831',source:'Reuters',kicker:'Energy',headline:'Oil jumps more than 2% after U.S. attack on Iran’s Larak Island',byline:'REUTERS',dateline:'SINGAPORE (Reuters) — Mon 31 Aug 2026',lead:'Brent crude climbed $2.22, or 2.52%, to $90.32 a barrel and WTI rose $2.01, or 2.41%, to $85.41 after the first known U.S. strikes on Iran since late July. Reporting by Florence Tan; editing by Chris Reese.',url:'https://www.reuters.com/business/energy/oil-jumps-more-than-2-after-us-attack-irans-larak-island-2026-08-30/',ts:'2026-08-30T22:12:00Z'},
+  {id:'reu-kharg-0831',source:'Reuters',kicker:'Iran',headline:'Trump posts AI video of Iran’s Kharg in smithereens; no evidence of attack',byline:'REUTERS',dateline:'WASHINGTON (Reuters) — Mon 31 Aug 2026, 5:40 a.m. UTC',lead:'U.S. President Donald Trump posted an AI-generated clip that he said showed Iran’s oil hub Kharg Island being blown to smithereens, hours after the two countries traded attacks for the first time since July. Reuters said there was no immediate confirmation of an attack on Kharg.',url:'https://www.reuters.com/world/iran-war-live-us-iran-resume-attacks-trump-says-kharg-island-is-being-blown-2026-08-31/',ts:'2026-08-31T05:40:00Z'},
+  {id:'reu-nepal-0831',source:'Reuters',kicker:'Disaster',headline:'Nepal teams seek hundreds trapped in hydropower tunnels after deadly floods',byline:'REUTERS',dateline:'KATHMANDU (Reuters) — Sun 30-Mon 31 Aug 2026',lead:'Rescue teams, helped by Chinese and Indian specialists, worked overnight to reach hundreds believed trapped inside blocked hydropower tunnels after last week’s Himalayan flood. Combined deaths in Nepal and Tibet rose toward 750-800, with more than 3,000 missing.',url:'https://www.reuters.com/',ts:'2026-08-31T04:00:00Z'},
+  {id:'reu-kyiv-0830',source:'Reuters',kicker:'Ukraine',headline:'Kyiv-area survivor recalls Russian strike that killed 38',byline:'REUTERS',dateline:'KYIV (Reuters) — Sat 29-Sun 30 Aug 2026',lead:'A drone strike on an ammunition depot sparked blasts that killed 38 people in the deadliest Russian strike of the year on the Kyiv area, Reuters reported. Separately, Ukraine’s air force said Russia launched two Iskander-M missiles and 130 drones overnight Aug. 29-30.',url:'https://www.reuters.com/',ts:'2026-08-30T12:00:00Z'},
+  {id:'bbg-wrap-0831',source:'Bloomberg',kicker:'Markets',headline:'U.S. futures mixed, Treasury yields dip; oil rises: Markets Wrap',byline:'BLOOMBERG NEWS',dateline:'NEW YORK (Bloomberg) — Updated Mon 31 Aug 2026, 7:14 a.m. UTC',lead:'U.S. Treasury yields ticked lower and stock futures were mixed as traders assessed the rate outlook after Fed Chair Kevin Warsh’s hawkish inflation comments at Jackson Hole. Oil climbed as Middle East tensions flared. The two-year yield dropped three basis points, paring some of Friday’s jump.',url:'https://www.bloomberg.com/news/articles/2026-08-30/stock-market-today-dow-s-p-live-updates',ts:'2026-08-31T07:14:00Z'},
+  {id:'bbg-apple-0831',source:'Bloomberg',kicker:'Technology',headline:'Apple’s Ternus takes the reins as CEO, with AI as job No. 1',byline:'BLOOMBERG NEWS',dateline:'CUPERTINO (Bloomberg) — Mon 31 Aug 2026',lead:'Apple’s changing of the guard will be gradual, with outgoing CEO Tim Cook handling relations with the Trump administration and China, Bloomberg reported as John Ternus takes over as chief executive.',url:'https://www.bloomberg.com/asia',ts:'2026-08-31T02:00:00Z'},
+  {id:'bbg-shein-0831',source:'Bloomberg',kicker:'IPO',headline:'Shein set for long-awaited Hong Kong IPO debut',byline:'BLOOMBERG NEWS',dateline:'HONG KONG (Bloomberg) — Mon 31 Aug 2026',lead:'Shein is set to go public in Hong Kong on Tuesday at just over a quarter of the $100 billion valuation it carried in 2022. Bloomberg said the founder’s paper wealth has slumped by about $15 billion on the reduced listing size.',url:'https://www.bloomberg.com/asia',ts:'2026-08-31T01:00:00Z'},
+  {id:'yah-bid-0830',source:'Yahoo',kicker:'Markets',headline:'Morning Bid: Oil climbs as missiles fly in the Gulf',byline:'REUTERS via YAHOO FINANCE',dateline:'SYDNEY (Yahoo Finance) — Sun 30 Aug 2026, 9:31 p.m. PDT',lead:'The week opened with U.S. forces striking two missile launchers on Larak Island while Tehran attacked U.S. forces in Jordan. Brent climbed about 2.4% back above $90. Asian stocks and U.S. share futures were lower; Japanese 10-year yields hit their highest since 1996.',url:'https://finance.yahoo.com/energy/articles/morning-bid-oil-climbs-missiles-043154399.html',ts:'2026-08-31T04:31:00Z'},
+  {id:'yah-ukraine-0830',source:'Yahoo',kicker:'Ukraine',headline:'Russia attacks Ukraine with two Iskander missiles and 130 drones overnight',byline:'UKRAYINSKA PRAVDA via YAHOO NEWS',dateline:'KYIV — Sun 30 Aug 2026, 5:46 a.m. UTC',lead:'Ukraine’s Air Force said Russia launched two Iskander-M ballistic missiles from Kursk Oblast and 130 Shahed, Gerbera and decoy drones on the night of Aug. 29-30. Air defenses shot down or jammed 125 drones. Hits were recorded at 13 locations.',url:'https://www.yahoo.com/news/world/articles/russia-attacks-ukraine-two-iskander-054600910.html',ts:'2026-08-30T05:46:00Z'},
+  {id:'asco-litt-0828',source:'ASCO',kicker:'Oncology',headline:'Large multicenter study evaluates LITT for primary and metastatic brain tumors',byline:'THE ASCO POST',dateline:'ASCO Post — Fri 28 Aug 2026, 10:50 a.m.',lead:'Findings from the prospective multicenter LAANTERN study, reported by Leuthardt et al. in the Journal of Clinical Oncology, indicate laser interstitial thermal therapy may offer a minimally invasive cytoreductive option for selected patients with primary and metastatic brain tumors.',url:'https://ascopost.com/news/',ts:'2026-08-28T14:50:00Z'},
+  {id:'asco-ctdna-0827',source:'ASCO',kicker:'Breast Cancer',headline:'Tissue-free ctDNA assay may help identify recurrence risk in early triple-negative breast cancer',byline:'THE ASCO POST',dateline:'ASCO Post — Thu 27 Aug 2026, 5:12 p.m.',lead:'A tissue-free circulating tumor DNA assay was strongly prognostic for recurrence in patients treated for triple-negative breast cancer and provided a lead time to recurrence comparable to a multivariant tumor-informed assay, The ASCO Post reported.',url:'https://ascopost.com/news/',ts:'2026-08-27T21:12:00Z'},
+  {id:'esmo-ema-0828',source:'ESMO',kicker:'Oncology',headline:'EMA recommends refusing marketing authorisation for copper (64Cu) oxodotreotide',byline:'ESMO',dateline:'ESMO Oncology News — Fri 28 Aug 2026',lead:'The European Medicines Agency recommended refusing marketing authorisation for copper (64Cu) oxodotreotide, intended for PET imaging of somatostatin receptor overexpression in adults with well-differentiated neuroendocrine tumours excluding neuroblastomas.',url:'https://www.esmo.org/newsroom/oncology-news',ts:'2026-08-28T12:00:00Z'},
+  {id:'esmo-thymus-0826',source:'ESMO',kicker:'Lung Cancer',headline:'Thymus radiation linked to worse outcomes in patients with non-small cell lung cancer',byline:'ANNALS OF ONCOLOGY / ESMO',dateline:'ESMO — Wed 26 Aug 2026',lead:'New research published via Annals of Oncology found radiation to the thymus is associated with worse outcomes in patients being treated for NSCLC, challenging the long-held view that the organ is of little use beyond puberty.',url:'https://www.esmo.org/newsroom/press-and-media-hub/esmo-media-releases',ts:'2026-08-26T12:00:00Z'},
+  {id:'afp-nepal-0830',source:'AFP',kicker:'Disaster',headline:'Himalayan flood death toll nears 800 as more than 3,000 remain missing',byline:'AGENCE FRANCE-PRESSE',dateline:'KATHMANDU (AFP) — Sun 30-Mon 31 Aug 2026',lead:'Nearly 800 people have been killed and more than 3,000 remain missing after catastrophic floods and mudslides along the Nepal-China border, five days after a glacier collapse unleashed ice, rock and debris. Nepal reported 781 dead and 2,502 missing; China reported 16 dead and 546 missing in Tibet.',url:'https://www.dawn.com/news/2026264',ts:'2026-08-31T02:02:00Z'},
+  {id:'bbc-iran-0831',source:'BBC',kicker:'World',headline:'U.S. and Iran trade fire for first time in a month',byline:'BBC NEWS',dateline:'LONDON (BBC) — Mon 31 Aug 2026',lead:'Iran retaliated after U.S. attacks on an island in the Strait of Hormuz, the BBC Global News Podcast reported, the first exchange of fire between the two militaries in about a month.',url:'https://www.bbc.com/audio/brand/p02nq0gn',ts:'2026-08-31T04:00:00Z'},
+  {id:'bbc-iceland-0829',source:'BBC',kicker:'Europe',headline:'Iceland rejects EU-accession talks in close-fought referendum',byline:'BBC NEWS',dateline:'REYKJAVIK (BBC) — Sat 29 Aug 2026',lead:'Icelanders voted no in a referendum on resuming talks on joining the European Union, 13 years after negotiations were first broken off. Official figures showed 52.8% rejected the proposal and 47.2% voted yes.',url:'https://www.reuters.com/',ts:'2026-08-29T20:00:00Z'},
+  {id:'scmp-maps-0831',source:'SCMP',kicker:'Politics',headline:'Google Maps changes Lake Ontario to Lake America for U.S. users after Trump order',byline:'SOUTH CHINA MORNING POST',dateline:'HONG KONG (SCMP) — Mon 31 Aug 2026',lead:'Google Maps began showing Lake America for U.S. users after President Trump ordered the U.S. geographic name changed. Canadian users continued to see Lake Ontario, the South China Morning Post reported.',url:'https://www.scmp.com/topics/us-politics',ts:'2026-08-31T03:00:00Z'},
+  {id:'scmp-haze-0831',source:'SCMP',kicker:'Environment',headline:'Malaysia’s air quality turns hazardous as Indonesian wildfires burn',byline:'SOUTH CHINA MORNING POST',dateline:'KUALA LUMPUR (SCMP) — Mon 31 Aug 2026',lead:'The pollution index hit 476 near the Malaysia-Indonesia border, forcing school closures and triggering emergency cloud-seeding plans in Sarawak as haze from Indonesian wildfires worsened.',url:'https://www.scmp.com/topics/indonesia',ts:'2026-08-31T07:08:00Z'},
+  {id:'nk-larak-0831',source:'Nikkei',kicker:'Iran',headline:'U.S. forces strike two Iranian launchers in first attack in weeks',byline:'NIKKEI ASIA / REUTERS',dateline:'WASHINGTON — Mon 31 Aug 2026, 8:04 JST',lead:'Nikkei Asia reported that U.S. forces struck two Iranian launchers on Larak Island on Sunday. A U.S. official said IRGC forces were preparing to launch rockets with sea mines into the Strait of Hormuz. Iran’s Revolutionary Guards said the attack killed and wounded several people.',url:'https://asia.nikkei.com/spotlight/iran-tensions/iran-war/us-forces-strike-two-iranian-launchers-in-first-attack-in-weeks',ts:'2026-08-30T23:04:00Z'},
+  {id:'stat-takeda-0830',source:'STAT',kicker:'Biotech',headline:'FDA approves Protagonist and Takeda’s drug for rare blood cancer',byline:'STAT',dateline:'BOSTON (STAT) — Sun 30 Aug 2026',lead:'The FDA approved a Protagonist Therapeutics and Takeda medicine for a rare blood cancer, STAT reported. Fierce Pharma separately identified the product as Mimrylo, a first-in-class hepcidin mimetic for polycythemia vera and one of Takeda’s key upcoming launches.',url:'https://www.statnews.com/',ts:'2026-08-30T18:00:00Z'},
+  {id:'stat-az-0828',source:'STAT',kicker:'Pharma',headline:'AstraZeneca and Ionis detail surprise failure of heart-disease drug Wainua',byline:'STAT',dateline:'BOSTON (STAT) — Fri 28 Aug 2026',lead:'AstraZeneca detailed the surprise Phase 3 failure of Wainua in ATTR-CM. Patients already on a stabilizer saw no added benefit from the silencer, an effect that tanked the CARDIO-TTRansform study. Alnylam later defended its own heart-disease franchise.',url:'https://www.statnews.com/2026/08/28/biotech-news-astrazeneca-ionis-detail-surprise-failure-of-heart-disease-drug/',ts:'2026-08-28T12:39:00Z'},
+  {id:'fp-mimrylo-0828',source:'FiercePharma',kicker:'Pharma',headline:'Takeda wins FDA nod for first-in-class blood-cancer drug Mimrylo',byline:'FIERCE PHARMA',dateline:'Fierce Pharma — Fri 28 Aug 2026, 10:04 p.m.',lead:'Takeda won FDA approval for Mimrylo, the first polycythemia vera drug that mimics hepcidin. Deputy editor Angus Liu reported it as one of three key launches for Takeda’s next growth phase.',url:'https://www.fiercepharma.com/person/angus-liu-0',ts:'2026-08-29T02:04:00Z'},
+  {id:'fp-wainua-0829',source:'FiercePharma',kicker:'Pharma',headline:'ESC: AstraZeneca digs deep on Wainua’s surprise Phase 3 failure in ATTR-CM',byline:'FIERCE PHARMA',dateline:'MUNICH (Fierce Pharma) — Sat 29 Aug 2026, 1:35 p.m.',lead:'Detailed CARDIO-TTRansform results were among the most anticipated readouts at the European Society of Cardiology Congress in Munich after Wainua failed to add benefit on top of stabilizer therapy.',url:'https://www.fiercepharma.com/keyword/astrazeneca',ts:'2026-08-29T17:35:00Z'},
+  {id:'hk01-rain-0831',source:'HK01',kicker:'Hong Kong',headline:'Hong Kong Observatory issues yellow rainstorm warning as squalls spread',byline:'HK01',dateline:'HONG KONG (HK01) — Mon 31 Aug 2026, 12:25 HKT',lead:'The Hong Kong Observatory issued the yellow rainstorm warning at 12:25 p.m. after thunderstorms tied to a broad trough moved across the Pearl River estuary. A thunderstorm warning was already in force. Tuesday’s school-opening day is also forecast to bring squally showers.',url:'https://www.hk01.com/',ts:'2026-08-31T04:25:00Z'}
+];
+const RSS_FEEDS = [
+  { source: 'BBC', url: 'https://feeds.bbci.co.uk/news/rss.xml' },
+  { source: 'Yahoo', url: 'https://news.yahoo.com/rss/' },
+  { source: 'AP', url: 'https://rsshub.app/apnews/topics/apf-topnews' }
+];
+const PROXIES = [
+  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/?' + encodeURIComponent(u)
+];
+let activeSource = 'ALL';
+let stories = SEEDED.slice();
+function formatPrice(p) {
+  if (p >= 1000) return p.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  return p.toFixed(2);
+}
+function renderTicker() {
+  const el = document.getElementById('ticker');
+  let html = '';
+  for (let i = 0; i < 2; i++) {
+    STOCKS.forEach(s => {
+      const cls = s.pct >= 0 ? 'up' : 'down';
+      const sign = s.pct >= 0 ? '+' : '';
+      html += '<span class="ticker-item"><span class="sym">' + s.sym + '</span>' + formatPrice(s.price) + ' <span class="' + cls + '">' + sign + s.chg.toFixed(2) + ' (' + sign + s.pct.toFixed(2) + '%)</span></span>';
+    });
+  }
+  el.innerHTML = html;
+}
+function updateClock() {
+  const now = new Date();
+  const opts = { timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+  document.getElementById('clock').textContent = now.toLocaleString('en-US', opts) + ' EDT';
+}
+function sourceCounts() {
+  const counts = { ALL: stories.length };
+  stories.forEach(s => { counts[s.source] = (counts[s.source] || 0) + 1; });
+  return counts;
+}
+function renderChips() {
+  const counts = sourceCounts();
+  const row = document.getElementById('chipRow');
+  row.innerHTML = SOURCES.map(src => {
+    const n = counts[src] || 0;
+    const active = src === activeSource ? ' active' : '';
+    return '<button type="button" class="chip' + active + '" data-src="' + src + '">' + src + '<span class="n">' + n + '</span></button>';
+  }).join('');
+}
+function renderFeed() {
+  const feed = document.getElementById('feed');
+  const list = stories.filter(s => activeSource === 'ALL' || s.source === activeSource).sort((a, b) => (b.ts || '').localeCompare(a.ts || ''));
+  if (!list.length) {
+    feed.innerHTML = '<div class="empty">No verified wires for ' + activeSource + '.</div>';
+    return;
+  }
+  feed.innerHTML = list.map(s => {
+    const h = s.url ? '<a href="' + s.url + '" target="_blank" rel="noopener">' + s.headline + '</a>' : s.headline;
+    return '<article class="story" data-source="' + s.source + '"><div class="story-top"><div class="kicker">' + s.kicker + '</div><span class="source-chip">' + s.source + '</span></div><h2 class="headline">' + h + '</h2><div class="meta"><span class="byline">' + s.byline + '</span></div><div class="dateline">' + s.dateline + '</div><p class="lead">' + s.lead + '</p></article>';
+  }).join('');
+}
+function setMeta(text) {
+  document.getElementById('refreshMeta').textContent = text;
+}
+function parseRss(xmlText, source) {
+  const out = [];
+  try {
+    const doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+    const items = [...doc.querySelectorAll('item')].slice(0, 8);
+    items.forEach((item, i) => {
+      const title = (item.querySelector('title') && item.querySelector('title').textContent || '').trim();
+      const link = (item.querySelector('link') && item.querySelector('link').textContent || '').trim();
+      const desc = (item.querySelector('description') && item.querySelector('description').textContent || '').replace(/<[^>]+>/g, '').trim();
+      const pub = item.querySelector('pubDate') && item.querySelector('pubDate').textContent || '';
+      if (!title) return;
+      const d = pub ? new Date(pub) : new Date();
+      if (Number.isNaN(d.getTime())) return;
+      out.push({id:'rss-' + source + '-' + i + '-' + d.getTime(), source:source, kicker:'Wire', headline:title, byline: source === 'AP' ? 'THE ASSOCIATED PRESS' : source.toUpperCase(), dateline: pub || d.toISOString(), lead: desc ? desc.slice(0, 280) : 'Live RSS item. Open the source for the full wire.', url:link || '', ts:d.toISOString()});
+    });
+  } catch (e) {}
+  return out;
+}
+async function fetchFeed(feed) {
+  for (const wrap of PROXIES) {
+    try {
+      const res = await fetch(wrap(feed.url), { cache: 'no-store' });
+      if (!res.ok) continue;
+      const text = await res.text();
+      if (!text || text.length < 40) continue;
+      return parseRss(text, feed.source);
+    } catch (e) {}
+  }
+  return [];
+}
+async function refreshHeadlines() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true;
+  btn.classList.add('busy');
+  btn.textContent = 'Refreshing';
+  setMeta('Refreshing wires... trying BBC / Yahoo / AP RSS. Seeded verified items remain if feeds are blocked.');
+  const results = await Promise.allSettled(RSS_FEEDS.map(fetchFeed));
+  const incoming = [];
+  results.forEach(r => { if (r.status === 'fulfilled') incoming.push.apply(incoming, r.value); });
+  const seen = new Set(SEEDED.map(s => s.headline.toLowerCase()));
+  const extras = [];
+  incoming.forEach(item => {
+    const key = item.headline.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    extras.push(item);
+  });
+  stories = extras.concat(SEEDED);
+  const stamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+  if (extras.length) {
+    setMeta('Refresh ' + stamp + ' EDT — merged ' + extras.length + ' live RSS items on top of ' + SEEDED.length + ' verified wires. Tape remains DELAYED Fri 28 Aug closes.');
+  } else {
+    setMeta('Refresh ' + stamp + ' EDT — RSS blocked or empty (CORS). Showing ' + SEEDED.length + ' verified dated wires. Tape remains DELAYED Fri 28 Aug closes.');
+  }
+  renderChips();
+  renderFeed();
+  renderTicker();
+  btn.disabled = false;
+  btn.classList.remove('busy');
+  btn.textContent = 'Refresh';
+}
+document.getElementById('chipRow').addEventListener('click', (e) => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  activeSource = btn.dataset.src;
+  renderChips();
+  renderFeed();
+});
+document.getElementById('refreshBtn').addEventListener('click', refreshHeadlines);
+renderTicker();
+renderChips();
+renderFeed();
+updateClock();
+setInterval(updateClock, 1000);
+</script>
 </body>
 </html>
