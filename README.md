@@ -7,8 +7,8 @@ Dense Bloomberg-style **all-news** wire terminal.
 - Real dated wires only (AP, Reuters, Bloomberg, Yahoo, ASCO Post, ASCO Daily News, ESMO Daily Reporter, AFP, BBC, SCMP, Nikkei, STAT, FiercePharma, HK01)
 - Source chip appears only when a dated item exists for that wire
 - No invented copy, no fake bylines, no X posts
-- **DELAYED** tape: official U.S. closes, Friday 28 Aug 2026
-- Source chips + on-demand **REFRESH** (verified wires + optional BBC/Yahoo/AP/Reuters RSS merge). Press `R`.
+- **DELAYED** tape: official U.S. closes, Friday 28 Aug 2026 (DJIA 53,559.99 · SPX 7,711.76 · COMP 26,402.42 · RUT 2,972.37)
+- On-demand **REFRESH** merges reachable RSS from AP / Reuters / Yahoo / BBC / AFP / STAT / FiercePharma / Nikkei on top of the verified seed. Press `R`. Seeded wires never drop.
 
 **Live preview:**  
 https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html
