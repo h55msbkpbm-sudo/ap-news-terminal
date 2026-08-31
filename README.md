@@ -4,7 +4,7 @@ Dense Bloomberg-style **all-news** wire terminal.
 
 - Black background + amber text
 - Larger readable type (18px base)
-- Real dated wires only (AP, Reuters, Bloomberg, Yahoo, ASCO Post, AFP, BBC, SCMP, Nikkei, STAT, FiercePharma, HK01)
+- Real dated wires only (AP, Reuters, Bloomberg, Yahoo, ASCO Post, ASCO Daily News, ESMO Daily Reporter, AFP, BBC, SCMP, Nikkei, STAT, FiercePharma, HK01)
 - Source chip appears only when a dated item exists for that wire
 - No invented copy, no fake bylines, no X posts
 - **DELAYED** tape: official U.S. closes, Friday 28 Aug 2026

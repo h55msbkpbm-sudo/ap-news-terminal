@@ -35,13 +35,13 @@ body{color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.4;-w
 .masthead-title{font-size:.88rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
 .masthead-right{margin-left:auto;display:flex;align-items:center;gap:14px}
 .live-clock{font-family:var(--mono);font-size:.88rem;color:var(--muted)}
-.refresh-btn{appearance:none;border:2px solid var(--amber);background:var(--amber);color:#000;font-family:var(--sans);font-size:.92rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:10px 22px;cursor:pointer;min-width:148px}
+.refresh-btn{appearance:none;border:2px solid var(--amber);background:var(--amber);color:#000;font-family:var(--sans);font-size:.95rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:11px 24px;cursor:pointer;min-width:160px}
 .refresh-btn:hover{background:var(--amber-hot)}
 .refresh-btn:focus{outline:2px solid #fff;outline-offset:2px}
 .refresh-btn.busy{background:#1a160c;color:var(--amber);cursor:wait}
 .refresh-meta{font-family:var(--mono);font-size:.76rem;color:var(--dim);width:100%}
 .chip-row{display:flex;flex-wrap:wrap;gap:7px;padding:11px 18px;border-bottom:1px solid var(--border);background:#000;position:sticky;top:calc(var(--ticker-h) + 64px);z-index:40}
-.chip{appearance:none;border:1px solid var(--border);background:var(--bg-chip);color:var(--muted);font-family:var(--sans);font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;cursor:pointer}
+.chip{appearance:none;border:1px solid var(--border);background:var(--bg-chip);color:var(--muted);font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:6px 10px;cursor:pointer}
 .chip.active{border-color:var(--amber);color:#000;background:var(--amber)}
 .chip .n{margin-left:5px;opacity:.75}
 .feed{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:0;max-width:1800px;margin:0 auto;background:#000}
@@ -49,7 +49,7 @@ body{color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.4;-w
 .story:hover{background:var(--bg-elev)}
 .story-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .kicker{font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
-.source-chip{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--amber-deep);color:var(--amber);padding:2px 8px;white-space:nowrap}
+.source-chip{font-size:.66rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--amber-deep);color:var(--amber);padding:2px 8px;white-space:nowrap}
 .headline{font-size:1.22rem;font-weight:750;line-height:1.26;color:#fff;letter-spacing:-.015em}
 .headline a{color:inherit;text-decoration:none}
 .headline a:hover{color:var(--amber)}
@@ -82,7 +82,7 @@ footer a:hover{color:var(--amber)}
     <button type="button" class="refresh-btn" id="refreshBtn" title="Reload verified wires and try RSS merge (R)">Refresh</button>
     <div class="live-clock" id="clock"></div>
   </div>
-  <div class="refresh-meta" id="refreshMeta">Verified dated wires loaded. Quotes: official U.S. closes, Fri 28 Aug 2026.</div>
+  <div class="refresh-meta" id="refreshMeta">Verified dated wires loaded. Quotes: official U.S. closes, Fri 28 Aug 2026. Press R to refresh.</div>
 </header>
 <nav class="chip-row" id="chipRow" aria-label="Source filters"></nav>
 <main class="feed" id="feed"></main>
@@ -94,6 +94,13 @@ footer a:hover{color:var(--amber)}
   ·
   <a href="https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html" target="_blank" rel="noopener">Live preview</a>
 </footer>
-<script src="data:text/javascript;base64,"></script>
+<script src="https://cdn.jsdelivr.net/gh/h55msbkpbm-sudo/ap-news-terminal@main/app.js"></script>
+<script>
+if(!window.AP_WIRE_BOOTED){
+  var a=document.createElement('script');
+  a.src='https://raw.githack.com/h55msbkpbm-sudo/ap-news-terminal/main/app.js';
+  document.body.appendChild(a);
+}
+</script>
 </body>
 </html>
