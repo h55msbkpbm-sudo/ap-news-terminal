@@ -23,7 +23,7 @@ Dense Bloomberg-style **all-news** wire terminal.
   - CAC 8,303.65 (−0.4%)
   - FTSE 10,702.25 (−1.1%)
 - On-demand **REFRESH** (button or `R`) merges reachable RSS from allowed wires on top of the verified seed. Seeded wires never drop. Filter resets to ALL. Busy state keeps the R hint.
-- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 9:27 p.m. HKT** (SCMP/AP Ternus takes Apple CEO). New dated wires merged: SCMP Manus solo after Meta block; AFP/SCMP Starmer quits Commons; AFP/SCMP Carney Liberals sweep 3 by-elections; Reuters gilts/sterling; Reuters Morning Bid September storm; Reuters Gulf stocks + oil; Yahoo live session (not cash). Prior verified seed retained.
+- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 9:27 p.m. HKT** (SCMP/AP Ternus takes Apple CEO). New dated wires merged: Bloomberg official Shein HKEX close HK$48.50 after a 10% dip to HK$43.72; Reuters/Bloomberg two Saudi VLCCs (Sidr, Senegal Prosperity) struck in Hormuz; STAT Paxlovid long-Covid miss (Helen Branswell); STAT MAHA dietitian crunch; Reuters Anthropic–Lambda $35bn cloud. Prior verified seed retained. No invented Tuesday U.S. cash close.
 
 **Live preview:**  
 https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html
