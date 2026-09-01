@@ -12,7 +12,7 @@ Dense Bloomberg-style **all-news** wire terminal.
   - SPX 7,686.14 (−25.62, −0.3%)
   - COMP 26,370.89 (−31.53, −0.1%)
   - No Russell 2000 — AP did not print a RUT close in the Monday wrap
-  - Do not invent Tuesday U.S. cash closes (U.S. session not open as of ~9:11 a.m. EDT Tue 1 Sep 2026)
+  - Tuesday U.S. cash session is open; do not invent a Tuesday 4 p.m. close
 - **DELAYED** Asia/Europe prints from AP Elaine Kurtenbach, Tuesday 1 Sep 2026:
   - Hang Seng 25,329.73 (−0.9%)
   - Shanghai 3,979.89 (−0.2%)
@@ -23,7 +23,7 @@ Dense Bloomberg-style **all-news** wire terminal.
   - CAC 8,303.65 (−0.4%)
   - FTSE 10,702.25 (−1.1%)
 - On-demand **REFRESH** (button or `R`) merges reachable RSS from allowed wires on top of the verified seed. Seeded wires never drop. Filter resets to ALL. Busy state keeps the R hint.
-- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 8:22 p.m. HKT** (Reuters Wall St futures update 8:22 a.m. ET — pre-open, not cash). New dated wires merged: Reuters/Ipsos Canada-tariff + Lake America poll (8:20 a.m. EDT), Yahoo Ternus first day / JOLTS / Dell (8:00 a.m. EDT), AP Ternus takes Apple CEO (7:32 a.m. EDT), Nikkei Xi SCO AI hub (19:17 JST), Reuters exclusive newborn-vitamin refusals, Reuters mail-ballot appeals filing, Reuters Tupac verdict, AP Times Square stabbing (Hallie Golden). Prior verified seed retained (Shein HKEX debut prints, Nepal 1,000+, Driscoll, St Francis injury, Honda-Nissan, Messi, SCOTUS ballroom, T1 6 p.m., Pezeshkian SCO, Kurtenbach oil/stocks). Duplicate SCMP Xi–Putin card removed.
+- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 9:27 p.m. HKT** (SCMP/AP Ternus takes Apple CEO). New dated wires merged: SCMP Manus solo after Meta block; AFP/SCMP Starmer quits Commons; AFP/SCMP Carney Liberals sweep 3 by-elections; Reuters gilts/sterling; Reuters Morning Bid September storm; Reuters Gulf stocks + oil; Yahoo live session (not cash). Prior verified seed retained.
 
 **Live preview:**  
 https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html
