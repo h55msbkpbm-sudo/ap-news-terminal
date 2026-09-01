@@ -13,7 +13,7 @@ Dense Bloomberg-style **all-news** wire terminal.
   - COMP 26,370.89 (−31.53, −0.1%)
   - No Russell 2000 — AP did not print a RUT close in the Monday wrap
 - On-demand **REFRESH** (button or `R`) merges reachable RSS from allowed wires on top of the verified seed. Seeded wires never drop. Filter resets to ALL.
-- Self-contained local `index.html` plus published `index.html` shell + `app.js`. Seed stamped Tue 1 Sep 2026 11:05 a.m. HKT (STAT/Bloomberg MFN nine-firm deals, AP Caine no-troops-at-polls letter, SCMP Xi-Putin, Shein IPO/gray-market, Nepal 903, SCOTUS ballroom stay, Messi, Honda-Nissan, Saudel T1). No invented Tuesday HKEX Shein open — allowed wires have not printed an official first print.
+- Self-contained `index.html`. Seed stamped Tue 1 Sep 2026 12:20 p.m. HKT (Reuters/Bloomberg Bessent–Siluanov G20, Bloomberg FTC–Amazon ad suit, STAT/Bloomberg MFN nine-firm deals, AP Caine letter, SCMP Xi-Putin, Shein IPO/gray-market, Nepal 903, SCOTUS ballroom stay, Messi, Honda-Nissan, Saudel T1). No invented Tuesday HKEX Shein open.
 
 **Live preview:**  
 https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html
