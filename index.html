@@ -35,13 +35,15 @@ body{color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.4;-w
 .masthead-title{font-size:.88rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
 .masthead-right{margin-left:auto;display:flex;align-items:center;gap:14px}
 .live-clock{font-family:var(--mono);font-size:.88rem;color:var(--muted)}
-.refresh-btn{appearance:none;border:2px solid var(--amber);background:var(--amber);color:#000;font-family:var(--sans);font-size:.95rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:11px 24px;cursor:pointer;min-width:160px}
+.refresh-btn{appearance:none;border:2px solid var(--amber);background:var(--amber);color:#000;font-family:var(--sans);font-size:1rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:12px 26px;cursor:pointer;min-width:176px}
 .refresh-btn:hover{background:var(--amber-hot)}
 .refresh-btn:focus{outline:2px solid #fff;outline-offset:2px}
-.refresh-btn.busy{background:#1a160c;color:var(--amber);cursor:wait}
-.refresh-meta{font-family:var(--mono);font-size:.76rem;color:var(--dim);width:100%}
-.chip-row{display:flex;flex-wrap:wrap;gap:7px;padding:11px 18px;border-bottom:1px solid var(--border);background:#000;position:sticky;top:calc(var(--ticker-h) + 64px);z-index:40}
-.chip{appearance:none;border:1px solid var(--border);background:var(--bg-chip);color:var(--muted);font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:6px 10px;cursor:pointer}
+.refresh-btn.busy{background:#1a160c;color:var(--amber);cursor:wait;border-color:var(--amber-dim)}
+.refresh-hint{font-family:var(--mono);font-size:.68rem;color:#000;margin-left:2px}
+.refresh-btn.busy .refresh-hint{color:var(--amber)}
+.refresh-meta{font-family:var(--mono);font-size:.76rem;color:var(--dim);width:100%;line-height:1.45}
+.chip-row{display:flex;flex-wrap:wrap;gap:7px;padding:11px 18px;border-bottom:1px solid var(--border);background:#000;position:sticky;top:calc(var(--ticker-h) + 72px);z-index:40}
+.chip{appearance:none;border:1px solid var(--border);background:var(--bg-chip);color:var(--muted);font-family:var(--sans);font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:7px 11px;cursor:pointer}
 .chip.active{border-color:var(--amber);color:#000;background:var(--amber)}
 .chip .n{margin-left:5px;opacity:.75}
 .feed{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:0;max-width:1800px;margin:0 auto;background:#000}
@@ -71,7 +73,7 @@ footer a:hover{color:var(--amber)}
 </head>
 <body>
 <div class="ticker-wrap">
-  <div class="ticker-label">DELAYED · FRI 4PM EDT</div>
+  <div class="ticker-label">DELAYED · MON 4PM EDT</div>
   <div class="ticker-track"><div class="ticker" id="ticker"></div></div>
 </div>
 <header class="masthead">
@@ -79,21 +81,22 @@ footer a:hover{color:var(--amber)}
   <span class="live-badge">DELAYED TAPE</span>
   <div class="masthead-title">All-News Terminal</div>
   <div class="masthead-right">
-    <button type="button" class="refresh-btn" id="refreshBtn" title="Reload verified wires and try RSS merge (R)">Refresh</button>
+    <button type="button" class="refresh-btn" id="refreshBtn" title="Reload verified seed and merge dated RSS from allowed wires (R). Seed never drops.">Refresh <span class="refresh-hint">R</span></button>
     <div class="live-clock" id="clock"></div>
   </div>
-  <div class="refresh-meta" id="refreshMeta">Verified dated wires loaded. Quotes: official U.S. closes, Fri 28 Aug 2026. Press R to refresh.</div>
+  <div class="refresh-meta" id="refreshMeta">Tue 1 Sep 2026 11:05 a.m. HKT seed — verified dated wires only. U.S. cash still closed. Tape locked to AP official U.S. closes Mon 31 Aug 2026 4 p.m. EDT (DJIA / SPX / COMP only). Press Refresh or R to merge allowed RSS.</div>
 </header>
 <nav class="chip-row" id="chipRow" aria-label="Source filters"></nav>
 <main class="feed" id="feed"></main>
 <footer>
   Wire-service terminal. Not affiliated with The Associated Press, Reuters, Bloomberg or any listed source.<br>
   Real dated wires only. No invented copy, no fake bylines, no X posts.<br>
-  Quotes: delayed official U.S. closes, Friday 28 Aug 2026. Not investment advice.<br>
+  Quotes: delayed official U.S. closes, Monday 31 Aug 2026 (AP). DJIA, S&amp;P 500 and Nasdaq only. Not investment advice.<br>
   <a href="https://github.com/h55msbkpbm-sudo/ap-news-terminal" target="_blank" rel="noopener">Source</a>
   ·
   <a href="https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html" target="_blank" rel="noopener">Live preview</a>
 </footer>
+<script src="./app.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/h55msbkpbm-sudo/ap-news-terminal@main/app.js"></script>
 <script>
 if(!window.AP_WIRE_BOOTED){
