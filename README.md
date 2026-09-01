@@ -12,8 +12,8 @@ Dense Bloomberg-style **all-news** wire terminal.
   - SPX 7,686.14 (−25.62, −0.3%)
   - COMP 26,370.89 (−31.53, −0.1%)
   - No Russell 2000 — AP did not print a RUT close in the Monday wrap
-- On-demand **REFRESH** (button or `R`) merges reachable RSS from allowed wires on top of the verified seed. Seeded wires never drop. Filter resets to ALL.
-- Seed stamped Tue 1 Sep 2026 2:20 p.m. HKT. New dated wires: HK01 60385255 T1 at least until 6 p.m. school-opening day (replaced mislabeled rainstorm copy on the same ID; 60384999 noon-T1 dropped), HK01 60385519 Tai Kok Tsui St. Francis Xavier student injured 8:43 a.m. / updated 1:36 p.m., Reuters Trump–Iran Larak/Jordan (dateline Mon 31 Aug), Reuters MFN mid-sized deals 31 Aug, Bloomberg Goldman Hormuz two-thirds pre-war (27 Aug), FiercePharma Kevin Dunleavy MFN preview 27 Aug (no separate Fierce 31 Aug write-up exists). SCMP T1 item kept as the verified 31 Aug noon version — public page 3365833 was not updated to 6 p.m. at 08:42. No ESMO 1 Sep item. Prior verified seed retained (Shein grey market, Honda-Nissan, Messi, Nepal 903, SCOTUS ballroom). No invented Tuesday tape. U.S. cash still closed.
+- On-demand **REFRESH** (button or `R`) merges reachable RSS from allowed wires on top of the verified seed. Seeded wires never drop. Filter resets to ALL. Busy state keeps the R hint.
+- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 2:11 p.m. HKT** (HK01 60385255 — T1 at least until 6 p.m. on school-opening day). Added AFP Nepal 939 / 3,925 missing (Tue 1 Sep), STAT Isabella Cueto migraine-prevention guidelines (Mon 31 Aug), Reuters G20 “US irks ministers / barring journalists” (Mon 31 Aug 4:20 p.m. UTC). Prior verified seed retained (Shein HKEX debut prints at midday HK$46.62 — no official 4 p.m. close used, Nepal 987 / 1,000+, Driscoll, St Francis injury, Honda-Nissan, Messi, SCOTUS ballroom). No invented Tuesday U.S. tape. U.S. cash still closed.
 
 **Live preview:**  
 https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html
