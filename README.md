@@ -23,7 +23,7 @@ Dense Bloomberg-style **all-news** wire terminal.
   - CAC 8,303.65 (−0.4%)
   - FTSE 10,702.25 (−1.1%)
 - On-demand **REFRESH** (button or `R`) merges reachable RSS from allowed wires on top of the verified seed. Seeded wires never drop. Filter resets to ALL. Busy state keeps the R hint.
-- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 9:27 p.m. HKT** (SCMP/AP Ternus takes Apple CEO). New dated wires merged: Bloomberg official Shein HKEX close HK$48.50 after a 10% dip to HK$43.72; Reuters/Bloomberg two Saudi VLCCs (Sidr, Senegal Prosperity) struck in Hormuz; STAT Paxlovid long-Covid miss (Helen Branswell); STAT MAHA dietitian crunch; Reuters Anthropic–Lambda $35bn cloud. Prior verified seed retained. No invented Tuesday U.S. cash close.
+- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 12:56 p.m. EDT** (AP: U.S. strikes Iran after a month without military action). Merged: Reuters Andrew Silver Roche–Simcere SIM0660 $75M / ~$1.46B; HK01 60385835 Kowloon Bay cash-in-transit vs BYD; HK01 60385797 Fanling Highway dump-truck (2 injured); HK01 60385785 612 fund appeal Thursday 3 Sep; AP Dolly Parton dies at 80. Grand Canyon AP brief updated to 2 dead / 1 missing / ~80 rescued. Nepal 1,000-dead and Driscoll resignation already on the tape — not restacked. No invented Tuesday U.S. cash close.
 
 **Live preview:**  
 https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html
