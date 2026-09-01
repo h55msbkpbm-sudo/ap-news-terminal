@@ -12,7 +12,7 @@ Dense Bloomberg-style **all-news** wire terminal.
   - SPX 7,686.14 (−25.62, −0.3%)
   - COMP 26,370.89 (−31.53, −0.1%)
   - No Russell 2000 — AP did not print a RUT close in the Monday wrap
-  - Do not invent Tuesday U.S. cash closes (U.S. session not open as of 6:53 a.m. EDT Tue 1 Sep 2026)
+  - Do not invent Tuesday U.S. cash closes (U.S. session not open as of ~9:11 a.m. EDT Tue 1 Sep 2026)
 - **DELAYED** Asia/Europe prints from AP Elaine Kurtenbach, Tuesday 1 Sep 2026:
   - Hang Seng 25,329.73 (−0.9%)
   - Shanghai 3,979.89 (−0.2%)
@@ -23,7 +23,7 @@ Dense Bloomberg-style **all-news** wire terminal.
   - CAC 8,303.65 (−0.4%)
   - FTSE 10,702.25 (−1.1%)
 - On-demand **REFRESH** (button or `R`) merges reachable RSS from allowed wires on top of the verified seed. Seeded wires never drop. Filter resets to ALL. Busy state keeps the R hint.
-- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 6:53 p.m. HKT**. New dated wires merged: AP Kurtenbach oil/stocks (Brent $92.35 / WTI $87.84, Shein as much as −10% close −4%), AP Troise/Veiga Mon Hormuz wrap (Brent settle $90.49), Yahoo Jake Conley oil surge, BBC Kyiv rail-worker strikes (at least 12 killed), SCMP Kyiv sixth day, SCMP Xi SCO Bishkek, Nikkei Modi–Putin, Nikkei 10-year JGB 3%, HK01 60385478 DH raid after exclusive, HK01 60381564 WT1 companies, Reuters AZ–Hutchmed Tagrisso+Orpathys SANOVO PFS. Prior verified seed retained (Shein HKEX debut prints, Nepal 1,000+, Driscoll, St Francis injury, Honda-Nissan, Messi, SCOTUS ballroom, T1 6 p.m.).
+- Seed stamped to the latest real wire time: **Tue 1 Sep 2026 8:22 p.m. HKT** (Reuters Wall St futures update 8:22 a.m. ET — pre-open, not cash). New dated wires merged: Reuters/Ipsos Canada-tariff + Lake America poll (8:20 a.m. EDT), Yahoo Ternus first day / JOLTS / Dell (8:00 a.m. EDT), AP Ternus takes Apple CEO (7:32 a.m. EDT), Nikkei Xi SCO AI hub (19:17 JST), Reuters exclusive newborn-vitamin refusals, Reuters mail-ballot appeals filing, Reuters Tupac verdict, AP Times Square stabbing (Hallie Golden). Prior verified seed retained (Shein HKEX debut prints, Nepal 1,000+, Driscoll, St Francis injury, Honda-Nissan, Messi, SCOTUS ballroom, T1 6 p.m., Pezeshkian SCO, Kurtenbach oil/stocks). Duplicate SCMP Xi–Putin card removed.
 
 **Live preview:**  
 https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html
