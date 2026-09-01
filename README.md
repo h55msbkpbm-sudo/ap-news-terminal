@@ -13,7 +13,7 @@ Dense Bloomberg-style **all-news** wire terminal.
   - COMP 26,370.89 (−31.53, −0.1%)
   - No Russell 2000 — AP did not print a RUT close in the Monday wrap
 - On-demand **REFRESH** (button or `R`) merges reachable RSS from allowed wires on top of the verified seed. Seeded wires never drop. Filter resets to ALL.
-- Seed stamped Tue 1 Sep 2026 1:50 p.m. HKT. New dated wires: SCMP Shein grey-market plunge to HK$42.2 (−13.1%, as much as −28% on Futu), Reuters Modi–Putin / Zelenskiy–Witkoff–Kushner / Reuters–Ipsos 33% approval, AP Gene Johnson mosque-livestream indictment, AP + BBC Trump–Apple Lake America. Prior verified seed retained (Bessent–Siluanov G20, FTC–Amazon, MFN nine-firm deals, Caine letter, SCOTUS ballroom stay, Messi, Honda-Nissan, Nepal 903, Saudel T1). No invented Tuesday HKEX Shein open print.
+- Seed stamped Tue 1 Sep 2026 2:20 p.m. HKT. New dated wires: HK01 60385255 T1 at least until 6 p.m. school-opening day (replaced mislabeled rainstorm copy on the same ID; 60384999 noon-T1 dropped), HK01 60385519 Tai Kok Tsui St. Francis Xavier student injured 8:43 a.m. / updated 1:36 p.m., Reuters Trump–Iran Larak/Jordan (dateline Mon 31 Aug), Reuters MFN mid-sized deals 31 Aug, Bloomberg Goldman Hormuz two-thirds pre-war (27 Aug), FiercePharma Kevin Dunleavy MFN preview 27 Aug (no separate Fierce 31 Aug write-up exists). SCMP T1 item kept as the verified 31 Aug noon version — public page 3365833 was not updated to 6 p.m. at 08:42. No ESMO 1 Sep item. Prior verified seed retained (Shein grey market, Honda-Nissan, Messi, Nepal 903, SCOTUS ballroom). No invented Tuesday tape. U.S. cash still closed.
 
 **Live preview:**  
 https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html
