@@ -73,7 +73,7 @@ footer a:hover{color:var(--amber)}
 </head>
 <body>
 <div class="ticker-wrap">
-  <div class="ticker-label">DELAYED \u00b7 US TUE 4PM EDT AP \u00b7 ASIA/EU TUE AP</div>
+  <div class="ticker-label">DELAYED · US TUE 4PM EDT AP · ASIA/EU TUE AP</div>
   <div class="ticker-track"><div class="ticker" id="ticker"></div></div>
 </div>
 <header class="masthead">
@@ -84,7 +84,7 @@ footer a:hover{color:var(--amber)}
     <button type="button" class="refresh-btn" id="refreshBtn" title="Reload verified seed and merge dated RSS from allowed wires (R). Seed never drops.">Refresh <span class="refresh-hint">R</span></button>
     <div class="live-clock" id="clock"></div>
   </div>
-  <div class="refresh-meta" id="refreshMeta">Tue 1 Sep 2026 6:31 p.m. EDT seed — latest dated wire AP News Summary 6:31 p.m. EDT: U.S. strikes Iran and Tehran fires back (wedding house hit; Iranian officials say five dead); Tropical Storm Edouard landfall Johnson Bayou, La. Official AP Tue 4 p.m. EDT cash close on the DELAYED tape: DJIA 52,766.88 (−419.02, −0.8%), SPX 7,631.47 (−54.67, −0.7%), COMP 26,099.77 (−271.11, −1.0%). New: AP Stengle/Oyekanmi Edouard; Reuters Edouard ashore + Iran/Jordan + euro-zone CPI 3.3%; BBC Nepal flood toll crosses 1,000; Nikkei Xi SCO AI hub + Asia bond selloff; STAT paperwork First Opinion; SCMP Li Qiang USCBC; AP Kyiv first day of school under fire. Prior verified seed retained. No X. Press Refresh or R to merge allowed RSS.</div>
+  <div class="refresh-meta" id="refreshMeta">Tue 1 Sep 2026 7:47 p.m. EDT seed — latest dated wire AP News Summary 7:47 p.m. EDT: U.S. military completes latest strikes against Iran; Trump vows more after Tehran fires back. New unused: Reuters exclusive State Dept child-passport parental-status checks (EO 14418); Novartis pauses 8 rap-cel trials after 3 deaths; Pastor Darrell Scott named CDC tobacco-health adviser; Bloomberg/Reuters/Yahoo Dell lifts FY27 outlook +$25B on AI servers; AP Carney tells Washington to stop memes; AP Chevron Venezuela expansion; AP IAEA Syria reactor at Deir el-Zour; ASCO Post geriatric oncology implementation. Official AP Tue 4 p.m. EDT cash close on the DELAYED tape: DJIA 52,766.88 (−419.02, −0.8%), SPX 7,631.47 (−54.67, −0.7%), COMP 26,099.77 (−271.11, −1.0%). Prior verified seed retained. No X. Press Refresh or R to merge allowed RSS.</div>
 </header>
 <nav class="chip-row" id="chipRow" aria-label="Source filters"></nav>
 <main class="feed" id="feed"></main>
@@ -93,17 +93,11 @@ footer a:hover{color:var(--amber)}
   Real dated wires only. No invented copy, no fake bylines, no X posts.<br>
   Quotes: delayed official U.S. closes Tue 1 Sep 2026 4 p.m. EDT (AP — Damian J. Troise, Alex Veiga; Kurtenbach/Chapman/Ott). DJIA 52,766.88 (−0.8%), SPX 7,631.47 (−0.7%), COMP 26,099.77 (−1.0%). No RUT on the tape. Asia/Europe DELAYED prints from AP Elaine Kurtenbach Tue 1 Sep. Not investment advice.<br>
   <a href="https://github.com/h55msbkpbm-sudo/ap-news-terminal" target="_blank" rel="noopener">Source</a>
-  \u00b7
+  ·
   <a href="https://htmlpreview.github.io/?https://github.com/h55msbkpbm-sudo/ap-news-terminal/blob/main/index.html" target="_blank" rel="noopener">Live preview</a>
 </footer>
-<script src="./app.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/h55msbkpbm-sudo/ap-news-terminal@main/app.js"></script>
 <script>
-if(!window.AP_WIRE_BOOTED){
-  var a=document.createElement('script');
-  a.src='https://raw.githack.com/h55msbkpbm-sudo/ap-news-terminal/main/app.js';
-  document.body.appendChild(a);
-}
+window.AP_WIRE_BOOTED=true;
 </script>
 </body>
 </html>
